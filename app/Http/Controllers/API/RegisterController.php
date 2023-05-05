@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\UserResource;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\assignRole;
+
    
 class RegisterController extends BaseController
 {
@@ -49,7 +51,6 @@ class RegisterController extends BaseController
         $success['token'] =  $user->createToken('MyApp')->plainTextToken;
         $success['name'] =  $user->name;
         $success['roles'] =  $user->roles->pluck('name') ?? [];
-        $success['permissions'] =  $user->permissions->pluck('name') ?? [];
    
         return $this->sendResponse($success, 'User register successfully.');
     }
@@ -67,7 +68,6 @@ class RegisterController extends BaseController
             $user_role = Role::where(['name' => 'client'])->first();
             if ($user_role) {
                 $user->assignRole($user_role);
-                
             }
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
             $success['name'] =  $user->name;
@@ -79,5 +79,16 @@ class RegisterController extends BaseController
         else{ 
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
+    }
+    
+    
+    
+    public function logout(Request $request){
+        Auth::attempt([
+            'email'=>$request->email,
+            'password'=>$request->password
+        ]);
+        auth('sanctum')->user()->tokens()->delete();
+        return response(['message'=>'Successfully Logging out']);
     }
 }

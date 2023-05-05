@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Spatie\Permission\Models\Role;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\RoleResource;
 use Spatie\Permission\Models\Permission;
 use Auth;
@@ -52,24 +52,19 @@ class RoleController extends BaseController
 
 
 
-    public function assignPerm(Request $request)
+    public function assignPerm(Request $request,  string $id)
     {
         // if (Auth::user()->hasPermissionTo('client.create')) {
 
-            $input = $request->all();
-            $role = Role::where('name', '=', $request->input('role'))->first();
+            $role = Role::find($id);
             $permissionNames = [$request->input('permission1'), $request->input('permission2'),
             $request->input('permission3'), $request->input('permission4')];
-
             $permissions = Permission::whereIn('name', $permissionNames)->get();
-            // $role->syncPermissions($permissions);
             $role->syncPermissions($permissions);
-            $success['role'] =  $request->input('role');
-            $success['permissions'] =  $role->permissions->pluck('name') ?? [];
 
             
 
-            return $this->sendResponse( $success, 'Role created successfully.');
+            return $this->sendResponse( 'success' , 'Role updated successfully.');
         // } else {
         //     return $this->sendError("Restriction Alert", 'You did not have permission to create Role');
         // }

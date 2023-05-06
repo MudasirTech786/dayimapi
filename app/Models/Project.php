@@ -13,5 +13,6 @@ class Project extends Model
         'units',
         'appartments',
         'shops',
+        'floors'
     ];
 }

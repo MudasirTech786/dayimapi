@@ -30,7 +30,8 @@ class ProjectController extends BaseController
             'name' => 'required',
             'units' => 'required',
             'appartments' => 'required',
-            'shops' => 'required'
+            'shops' => 'required',
+            'floors' => 'required'
         ]);
 
         if ($validator->fails()) {

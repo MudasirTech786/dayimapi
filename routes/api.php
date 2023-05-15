@@ -7,6 +7,7 @@ use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\AllotmentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,21 +33,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::controller(RoleController::class)->group(function(){
+        // Role crud api's
         Route::get('role-list', 'index');
         Route::post('role/create', 'store');
         Route::delete('role/delete/{id}', 'destroy');
         Route::post('role/permissions/{id}', 'assignPerm');
+
+        // User Crud api's
+        Route::resource('user', UserController::class);
+
+        // New Project crud api's
+        Route::resource('project', ProjectController::class);
+        Route::get('unitlist/{id}', [ProjectController::class, 'unitlist']);
+
+        // Allotment of unit api's
+        Route::resource('allotment', AllotmentController::class);
+
+        // Permission crud api's
+        Route::controller(PermissionController::class)->group(function(){
+            Route::get('permission-list', 'index');
+            Route::post('permission/create', 'store');
+            Route::put('permission/update/{id}', 'update');
+            Route::delete('permission/delete/{id}', 'destroy'); 
+        });
     });
 
-    Route::middleware('auth:sanctum')->group( function () {
-        Route::resource('user', UserController::class);
-        Route::resource('project', ProjectController::class);
-    });
     
-    Route::controller(PermissionController::class)->group(function(){
-        Route::get('permission-list', 'index');
-        Route::post('permission/create', 'store');
-        Route::put('permission/update/{id}', 'update');
-        Route::delete('permission/delete/{id}', 'destroy'); 
-    });
+    
+    
+    
 });

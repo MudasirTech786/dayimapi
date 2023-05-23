@@ -8,6 +8,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\AllotmentController;
+use App\Http\Controllers\API\ProjectCategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,6 +42,9 @@ Route::middleware('auth:sanctum')->group( function () {
 
         // User Crud api's
         Route::resource('user', UserController::class);
+
+        // Project Category Crud api's
+        Route::resource('category', ProjectCategoryController::class);
 
         // New Project crud api's
         Route::resource('project', ProjectController::class);

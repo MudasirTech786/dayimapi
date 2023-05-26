@@ -55,11 +55,7 @@ class AllotmentController extends BaseController
             'nominee_cnic' => 'required',
             'nominee_relation' => 'required',
             'payment_type' => 'required',
-            'payment_pay_order' => 'required',
-            'payment_deposite_slip' => 'required',
-            'payment_date' => 'required',
-            'payment_bank' => 'required',
-            'payment_branch' => 'required',
+            
         ]);
    
         if($validator->fails()){
@@ -87,11 +83,7 @@ class AllotmentController extends BaseController
             'nominee_cnic' => 'required',
             'nominee_relation' => 'required',
             'payment_type' => 'required',
-            'payment_pay_order' => 'required',
-            'payment_deposite_slip' => 'required',
-            'payment_date' => 'required',
-            'payment_bank' => 'required',
-            'payment_branch' => 'required',
+            
         ]);
    
         if($validator->fails()){
@@ -99,7 +91,7 @@ class AllotmentController extends BaseController
         }
         $input = $request->all();
         $user = ShopAllotment::create($input);
-        return $this->sendResponse($user, 'Allotted successfully.');
+        return $this->sendResponse($input, 'Allotted successfully.');
     }
 
     }

@@ -26,10 +26,9 @@ class ApartmentAllotment extends Model
         'nominee_cnic',
         'nominee_relation',
         'payment_type',
-        'payment_pay_order',
-        'payment_deposite_slip',
-        'payment_date',
-        'payment_bank',
-        'payment_branch',
+        'payment_total_amount',
+        'payment_down_amount',
+        'payment_processing_fee',
+        'payment_at_pocession',
     ];
 }

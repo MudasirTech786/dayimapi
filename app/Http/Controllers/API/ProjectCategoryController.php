@@ -23,7 +23,7 @@ class ProjectCategoryController extends BaseController
             'project_sub_categories.category_id',
             '=',
             'project_categories.id'
-        )->get(["name", "sub_category_name"]);
+        )->get(["project_categories.id", "name", "project_sub_categories.id AS sub_category_id", "sub_category_name"]);
         return $this->sendResponse($category, 'Project Category and Sub Category data retrieved successfully.');
     }
 
@@ -57,6 +57,8 @@ class ProjectCategoryController extends BaseController
         $id = ProjectCategory::create([
             'name' => $input['name']
         ])->id;
+
+        $input = $request->all();
 
         $sub_category_name = $request->get('sub_category_name');
 
@@ -95,7 +97,14 @@ class ProjectCategoryController extends BaseController
             'name' => $input['name']
         ]);
 
+        $sub_category = [];
+        $sub_category = $request->get('sub_category_id');
+        $sub_category = $request->get('sub_category_name');
 
+        foreach ($sub_category as $sub_category) {
+            $Subcategory = ProjectSubCategory::find($sub_category['sub_category_id']);
+            $Subcategory->update(['sub_category_name' => $sub_category['sub_category_name']]);
+        }
         return $this->sendResponse('Success', 'Category Name Updated successfully.');
     }
 

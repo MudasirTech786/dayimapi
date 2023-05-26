@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
+use App\Models\Module;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\UserResource;
 use Spatie\Permission\Models\Permission;
@@ -18,8 +19,17 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $user = User::all()->paginate(5);
-        return $this->sendResponse(UserResource::collection($user), 'Products retrieved successfully.');
+        $user = User::all();
+        return $this->sendResponse(UserResource::collection($user), 'User retrieved successfully.');
+        
+    }
+    
+    
+    
+    public function modules()
+    {
+        $user = Module::all();
+        return $this->sendResponse($user, 'Modules retrieved successfully.');
         
     }
 

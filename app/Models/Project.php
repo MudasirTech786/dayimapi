@@ -12,6 +12,16 @@ class Project extends Model
         'name',
         'units',
         'appartments',
+        'studio_count',
+        'studio_deluxe_count',
+        'studio_executive_count',
+        'onebed_count',
+        'onebed_deluxe_count',
+        'onebed_executive_count',
         'shops',
+        'lower_ground_count',
+        'ground_count',
+        'first_floor_count',
+        'floors'
     ];
 }

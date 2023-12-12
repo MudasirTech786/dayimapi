@@ -1,6 +1,14 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\AllotmentController;
+use App\Http\Controllers\API\ProjectCategoryController;
 
 /*
 |--------------------------------------------------------------------------

@@ -57,6 +57,10 @@ class RoleController extends BaseController
         // if (Auth::user()->hasPermissionTo('client.create')) {
 
             $role = Role::find($id);
+            if (!$role) {
+                // Role does not exist, you might want to handle this case accordingly
+                return response()->json(['error' => 'Role not found'], 404);
+            }
             $permissionNames = [$request->input('permission1'), $request->input('permission2'),
             $request->input('permission3'), $request->input('permission4')];
             $permissions = Permission::whereIn('name', $permissionNames)->get();
